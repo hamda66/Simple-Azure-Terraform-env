@@ -1,0 +1,43 @@
+# 1. Install the iSCSI Target Server feature
+Write-Host "Installing iSCSI Target Server feature..."
+Install-WindowsFeature -Name FS-iSCSITarget-Server -IncludeManagementTools
+
+# 2. Create a virtual disk (VHDX) to share via iSCSI
+$diskPath = "C:\iSCSIVirtualDisks\FileServer.vhdx"
+$diskSizeGB = 10  # Size of the VHDX in GB
+Write-Host "Creating a virtual disk at $diskPath with size $diskSizeGB GB..."
+
+# Check if the VHDX already exists, create it if not
+if (-Not (Test-Path -Path $diskPath)) {
+    New-VHD -Path $diskPath -SizeBytes ($diskSizeGB * 1GB) -Dynamic
+} else {
+    Write-Host "Virtual disk already exists. Skipping creation."
+}
+
+# 3. Initialize the virtual disk and create a partition
+Write-Host "Initializing the virtual disk and creating a partition..."
+$disk = Get-Disk | Where-Object { $_.Path -eq $diskPath }
+
+# Initialize disk
+$disk | Initialize-Disk -PartitionStyle GPT
+
+# Create partition and format it
+New-Partition -DiskNumber $disk.Number -UseMaximumSize | Format-Volume -FileSystem NTFS -NewFileSystemLabel "iSCSI_Disk" -Confirm:$false
+
+# 4. Set up an iSCSI target
+$targetName = "FileServer-iSCSI-Target"
+Write-Host "Creating iSCSI target: $targetName..."
+
+New-IscsiVirtualDisk -Path $diskPath -TargetName $targetName
+New-IscsiTarget -TargetName $targetName -TargetPortal "0.0.0.0"  # Replace with your server's IP if needed
+
+# 5. Add a mapping to allow iSCSI initiators to connect to this target
+Write-Host "Allowing initiators to connect to the iSCSI target..."
+New-IscsiTargetPortal -TargetPortalAddress "0.0.0.0"  # Replace with the server's IP address
+
+Write-Host "iSCSI Target $targetName has been successfully created and configured."
+
+# 6. Optionally, start the iSCSI Target service
+Start-Service -Name MSISCSITarget
+
+Write-Host "iSCSI service has been started."

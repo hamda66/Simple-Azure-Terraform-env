@@ -9,6 +9,3 @@
 -Set up file server and create network drive
 
 -create 3 departments with seperate subnet. Departments must be able to communicate via peering.
-# Simple-Azure-Terraform-env
-# Simple-Azure-Terraform-env
-# Simple-Azure-Terraform-env

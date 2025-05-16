@@ -15,40 +15,43 @@
 
 
 resource "azurerm_virtual_machine" "mainserver" {
-  resource_group_name = azurerm_resource_group.rg.name
+    resource_group_name = azurerm_resource_group.rg.name
     location = var.location
-    
     name = var.Server_name
+
     network_interface_ids = [azurerm_network_interface.nic.id]
+
+
     vm_size = var.Server_vm_size
+
+    
     
  
-     storage_image_reference {
+    storage_image_reference {
     publisher = var.Server_publisher
     offer     = var.Server_offer
     sku       = var.Server_sku
     version   = var.Server_version
+    }
 
-  }
-
-  os_profile {
+    os_profile {
     computer_name  = "mainserver"
     admin_username = "Hamda"
     admin_password = "Password123!"
     custom_data = ("script.ps1")
-  }
+    }
 
-  storage_os_disk {
+    storage_os_disk {
     name              = "ServerDisk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
-  }
+    }
 
-  os_profile_windows_config {
+    os_profile_windows_config {
    enable_automatic_upgrades = false
    provision_vm_agent = true
-  }
+    }
 
   
     
@@ -74,7 +77,7 @@ resource "azurerm_network_interface" "nic" {
 
 //Server script extension
 
- /*
+ 
 resource "azurerm_virtual_machine_extension" "server_script" {
 
   name = "InstallAD"
@@ -90,6 +93,7 @@ resource "azurerm_virtual_machine_extension" "server_script" {
   }
   SETTINGS
 
+  /*
   settings = <<SETTINGS
   { 
   
@@ -98,7 +102,7 @@ resource "azurerm_virtual_machine_extension" "server_script" {
   }
 
   SETTINGS
-  
+  */
   depends_on = [ azurerm_virtual_machine.mainserver]
 
-}*/
+}

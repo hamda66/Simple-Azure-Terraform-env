@@ -34,7 +34,7 @@ rm *.tfstate
     Decryption failed: [WinError 87]  App developer may consider this guidance: https://github.com/AzureAD/microsoft-authentication-extensions-for-python/wiki/PersistenceDecryptionError
 
     ~~ run this command in powershell / terminal:
-      Remove-Item -Recurse -Force "$env:USERPROFILE\.azure"
+                Remove-Item -Recurse -Force "$env:USERPROFILE\.azure"
 
 - Required resources to create stardard VM:
     - vm_size

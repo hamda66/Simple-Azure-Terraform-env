@@ -1,0 +1,16 @@
+$domain = "TestDomain.local"
+$username = "hamda"  # Replace with a domain administrator username
+$password = "Password123!"  # Replace with the corresponding password
+$computerName = $env:COMPUTERNAME  # This will use the current computer's name
+
+# Convert password to secure string
+$securePassword = ConvertTo-SecureString -String $password -AsPlainText -Force
+
+# Create the credentials object
+$credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
+
+# Add the computer to the domain
+Add-Computer -DomainName $domain -Credential $credential -ComputerName $computerName -Restart
+
+# Output a message to indicate the script has finished
+Write-Host "Computer has been added to the domain. The machine will restart now."
