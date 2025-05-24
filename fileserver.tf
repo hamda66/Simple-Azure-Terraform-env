@@ -1,6 +1,7 @@
 //This is configuration for Orginazation's File server
 /*
-
+Note: Windows computer name cannot be more than 15 characters long, be entirely numeric, or contain the following characters: ` ~ ! @ # $ % ^ & * ( ) = + _ [ ] { } \\ | ; : . ' \" , < > 
+/ ?." Target="osProfile.computerName"
 
 
 */
@@ -15,10 +16,10 @@ resource "azurerm_virtual_machine" "file_server"{
 network_interface_ids = [azurerm_network_interface.file_nic.id]
 
  os_profile {
-   computer_name = "SSO_fileserver"
+   computer_name = "SSOfileserver"
    admin_username = "Hamda"
    admin_password = "Password123!"
-   custom_data = ["joindomain.ps1.b64", "iscsi.ps1.b64"]
+   #custom_data = ["joindomain.ps1.b64", "iscsi.ps1.b64"]
  }
 
  storage_os_disk {   
@@ -54,16 +55,18 @@ resource "azurerm_network_interface" "file_nic"{
           name = "FileServer_nic_config"
           subnet_id = azurerm_subnet.sub.id
           private_ip_address_allocation = "Static"
-          private_ip_address = "10.0.0.4"
+          private_ip_address = "10.10.0.4"
           public_ip_address_id = azurerm_public_ip.file_server_pub.id
     }
 }
 resource "azurerm_public_ip" "file_server_pub" {
   name                = "FileServerPublicIP"
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
   sku                = "Standard"
+
+  depends_on = [azurerm_resource_group.rg ]
 }
 
 resource "azurerm_virtual_machine_extension" "joindomain" {
@@ -75,7 +78,7 @@ resource "azurerm_virtual_machine_extension" "joindomain" {
     
     settings = <<SETTINGS
         {
-            "fileUris": ["joindomain.ps1"],
+            
             "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File JoinDomain.ps1 -DomainName 'TestDomain.local' -UserName 'hamda' -Password 'Password123!'"
         }
         SETTINGS
@@ -100,7 +103,5 @@ resource "azurerm_virtual_machine_extension" "iscsi" {
     SETTINGS
 
     depends_on = [azurerm_virtual_machine_extension.joindomain]
-
-
 
 }

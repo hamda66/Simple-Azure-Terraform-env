@@ -9,6 +9,8 @@ description = "Location info"
 type = string
 }
 
+
+//Main server and file server
 variable "vnet_name" {
   type = string
 }
@@ -16,6 +18,8 @@ variable "vnet_name" {
 variable "Vnet_add" {
   type = set(string)  
 }
+
+
 
 variable "Server_subnet"{
     type = set(string)
@@ -55,6 +59,29 @@ variable "Server_version" {
   type = string
   description = "The version number of an image SKU."
 }
+
+//deptartmnt resources 
+
+variable "dept_subnet"{
+    type = set(string)
+    description = "Subnet for department"
+}
+
+variable "dept_subnet_name" {
+  type = string
+  description = "The name of the server's subnet"
+}
+
+variable "dept_vnet" {
+ type = set(string)  
+  description = "Virtual network for all departments"
+}
+
+variable "dept_vnet_name" {
+  type = string
+  description = "Department vnet name"
+}
+
 
 /*
 
