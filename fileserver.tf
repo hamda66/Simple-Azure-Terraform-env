@@ -69,6 +69,8 @@ resource "azurerm_public_ip" "file_server_pub" {
   depends_on = [azurerm_resource_group.rg ]
 }
 
+//script to join same domian configured on main server
+
 resource "azurerm_virtual_machine_extension" "joindomain" {
     name                 = "joindomain"
     virtual_machine_id   = azurerm_virtual_machine.file_server.id
@@ -87,6 +89,8 @@ resource "azurerm_virtual_machine_extension" "joindomain" {
 
 
 }
+
+//script to enable iscsi
 
 resource "azurerm_virtual_machine_extension" "iscsi" {
     name = "iscsi"

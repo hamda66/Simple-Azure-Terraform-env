@@ -62,18 +62,9 @@ variable "Server_version" {
 
 //deptartmnt resources 
 
-variable "dept_subnet"{
-    type = set(string)
-    description = "Subnet for department"
-}
-
-variable "dept_subnet_name" {
-  type = string
-  description = "The name of the server's subnet"
-}
 
 variable "dept_vnet" {
- type = set(string)  
+ type = set(string)   
   description = "Virtual network for all departments"
 }
 
@@ -83,7 +74,6 @@ variable "dept_vnet_name" {
 }
 
 
-/*
 
 variable "VM_vm_size" {
   type = string
@@ -109,5 +99,5 @@ variable "vm_version" {
   type = string
   description = "The version number of an image SKU."
 }
-*/
+
 

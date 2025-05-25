@@ -1,3 +1,5 @@
 .terraform/
 folder 
 .terraform.tfstate.lock.info
+.terraform.tfstate.backup
+

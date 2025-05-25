@@ -15,7 +15,6 @@ My objective of this project to create a dublicate enviroment of a small orginiz
 
 ### Note ##
 - To delete backup and clean up local files:
-
 rm *.terraform.lock.hcl
 rm *.tfstate.*
 rm *.tfstate

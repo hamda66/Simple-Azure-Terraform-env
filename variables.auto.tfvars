@@ -3,8 +3,11 @@ resource_group_name = "rg-test"
 location = "West US"
 
 
+//server network
 Vnet_add = ["10.10.0.0/16"]
 vnet_name = "Test-VNET"
+
+// department variable
 dept_vnet_name = "Departments"
 dept_vnet = ["10.30.0.0/16"]
 
@@ -20,7 +23,12 @@ Server_offer     = "WindowsServer"
 Server_sku       = "2016-Datacenter"
 Server_version   = "latest"
 
-//Design department variable
-dept_subnet = [ "10.30.1.0/24" ]
-dept_subnet_name = "Design_subnet"
+
+
+//department VMs
+VM_vm_size = "Standard_A1_V2"
+vm_offer = "Windows10Pro"
+vm_sku = "11"
+vm_publisher = "MicrosoftWindows"
+vm_version = "latest"
 
