@@ -20,6 +20,7 @@ resource "azurerm_virtual_machine" "designvm" {
 
  network_interface_ids = [ azurerm_network_interface.nic.id ]
 
+
  os_profile {
    admin_username = "Hamda-design"
    admin_password = "Password123!"
@@ -46,6 +47,9 @@ resource "azurerm_virtual_machine" "designvm" {
 
 }
 
+
+//enable nic and public ip to iterate thru VM array list
+
 resource "azurerm_network_interface" "nic" {
     resource_group_name = var.resource_group_name
     location = var.location
@@ -54,8 +58,15 @@ resource "azurerm_network_interface" "nic" {
       name = "Server_nic_config"
       subnet_id = azurerm_subnet.sub.id
       private_ip_address_allocation = "Static"
-      private_ip_address = "10.10.0.5"
-      public_ip_address_id = azurerm_public_ip.serverippub.id
+      private_ip_address = "10.30.3.25"
+      public_ip_address_id = azurerm_public_ip.design_public_ip.id
       
     }
+}
+
+resource "azurerm_public_ip" "design_public_ip" {
+  name = "Desgin_ip"
+  location = var.location
+  resource_group_name = var.resource_group_name
+  allocation_method = "Static"
 }

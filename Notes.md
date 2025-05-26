@@ -44,3 +44,5 @@ rm *.tfstate
     - os_profile_windows_config : enable_automatic_upgrades, provision_vm_agent
     - resource "azurerm_network_interface" 
     - resource "azurerm_public_ip"  --link th public IP to the nic configuration
+
+- allocation_method for IP can either be Staic or Dynamic 
