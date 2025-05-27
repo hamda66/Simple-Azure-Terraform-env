@@ -51,9 +51,11 @@ resource "azurerm_virtual_machine" "designvm" {
 //enable nic and public ip to iterate thru VM array list
 
 resource "azurerm_network_interface" "nic" {
+
+    count = 2
     resource_group_name = var.resource_group_name
     location = var.location
-    name = "nic"
+    name = "nic-${count.index}"
     ip_configuration {
       name = "Server_nic_config"
       subnet_id = azurerm_subnet.sub.id
