@@ -4,7 +4,6 @@ resource "azurerm_subnet" "sub" {
     virtual_network_name = azurerm_virtual_network.vnet.name
     name = "Subnet-${var.Server_subnet_name}"
     address_prefixes = var.Server_subnet
-
     
   
 }

@@ -6,23 +6,23 @@
 ##Must also place in correct subnet and  count/loop thru 2 vms
 
 variable "name_vms" {
-  type = map(string)
+  type = list(string)
   default = [ "Design_VM1", "Design_VM2" ]
 }
 
 resource "azurerm_virtual_machine" "designvm" {
-  for_each = var.name_vms
+  count = length(var.name_vms)
  resource_group_name = var.resource_group_name
-  name = "Design_VM-${name_vms.count[count.index]}"
+  name = "Design_VM-${count.index}"
  location = var.location
 
  vm_size =  var.VM_vm_size
 
- network_interface_ids = [ azurerm_network_interface.nic.id ]
+ network_interface_ids = [ azurerm_network_interface.design_vm_nic[count.index].id ]
 
 
  os_profile {
-   admin_username = "Hamda-design"
+   admin_username = "hamda"
    admin_password = "Password123!"
    computer_name = "ssodesign"
  }
@@ -45,30 +45,4 @@ resource "azurerm_virtual_machine" "designvm" {
     version   = var.vm_version
  }
 
-}
-
-
-//enable nic and public ip to iterate thru VM array list
-
-resource "azurerm_network_interface" "nic" {
-
-    count = 2
-    resource_group_name = var.resource_group_name
-    location = var.location
-    name = "nic-${count.index}"
-    ip_configuration {
-      name = "Server_nic_config"
-      subnet_id = azurerm_subnet.sub.id
-      private_ip_address_allocation = "Static"
-      private_ip_address = "10.30.3.25"
-      public_ip_address_id = azurerm_public_ip.design_public_ip.id
-      
-    }
-}
-
-resource "azurerm_public_ip" "design_public_ip" {
-  name = "Desgin_ip"
-  location = var.location
-  resource_group_name = var.resource_group_name
-  allocation_method = "Static"
 }

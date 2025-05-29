@@ -19,7 +19,7 @@ resource "azurerm_virtual_machine" "mainserver" {
     location = var.location
     name = var.Server_name
 
-    network_interface_ids = [azurerm_network_interface.nic.id]
+    network_interface_ids = [azurerm_network_interface.dc_nic.id]
 
 
     vm_size = var.Server_vm_size
@@ -58,11 +58,11 @@ resource "azurerm_virtual_machine" "mainserver" {
 }
 
 //Note: Resource name cannot be all capitals
-
-resource "azurerm_network_interface" "nic" {
+    // Remove the invalid attribute and use azurerm_network_interface_security_group_association to associate the NSG
+resource "azurerm_network_interface" "dc_nic" {
     resource_group_name = var.resource_group_name
     location = var.location
-    name = "nic"
+    name = "dc_nic"
     ip_configuration {
       name = "Server_nic_config"
       subnet_id = azurerm_subnet.sub.id
@@ -93,16 +93,6 @@ resource "azurerm_virtual_machine_extension" "server_script" {
   }
   SETTINGS
 
-  /*
-  settings = <<SETTINGS
-  { 
-  
-  "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -Command \"${replace(replace(file("script.ps1.b64"), "\"", "\\\""), "\n", " ")}\""
-  
-  }
-
-  SETTINGS
-  */
   depends_on = [ azurerm_virtual_machine.mainserver]
 
 }

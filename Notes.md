@@ -46,3 +46,5 @@ rm *.tfstate
     - resource "azurerm_public_ip"  --link th public IP to the nic configuration
 
 - allocation_method for IP can either be Staic or Dynamic 
+
+- Use resource azurerm_network_interface_security_group_association to connect security rule with NIC/VNET/Subnet
