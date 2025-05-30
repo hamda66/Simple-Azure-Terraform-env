@@ -81,7 +81,7 @@ resource "azurerm_virtual_machine_extension" "joindomain" {
     settings = <<SETTINGS
         {
             
-            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File JoinDomain.ps1 -DomainName 'TestDomain.local' -UserName 'hamda' -Password 'Password123!'"
+            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File joindomain.ps1.b64 -DomainName 'TestDomain.local' -UserName 'hamda' -Password 'Password123!'"
         }
         SETTINGS
 

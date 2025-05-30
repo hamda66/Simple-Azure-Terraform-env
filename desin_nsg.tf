@@ -3,9 +3,9 @@
 //
 
 resource "azurerm_network_security_group" "design_nsg" {
-    name = "Sec rule 1"
+    name = "Sec_rule_1"
     location = var.location
-    resource_group_name = var.resource_group_name
+    resource_group_name = azurerm_resource_group.rg.name
 
     security_rule {
         name = "VM_to_FileServer"
@@ -51,5 +51,5 @@ resource "azurerm_network_security_group" "design_nsg" {
 resource "azurerm_network_interface_security_group_association" "Design_VM_rule_assio" {
     count = length(var.name_vms)
   network_interface_id = azurerm_network_interface.design_vm_nic[count.index].id
-  network_security_group_id = azurerm_network_security_group.design_nsg
+  network_security_group_id = azurerm_network_security_group.design_nsg.id
 }

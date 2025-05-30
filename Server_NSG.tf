@@ -18,6 +18,7 @@ resource "azurerm_network_security_group" "servernsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+  
 
   
     security_rule {
@@ -41,6 +42,7 @@ resource "azurerm_network_security_group" "servernsg" {
 
 resource "azurerm_network_interface_security_group_association" "MainServer_Sec_Assio" {
   network_security_group_id = azurerm_network_security_group.servernsg.id
-  network_interface_id = azurerm_network_interface.dc_nic
+  network_interface_id = azurerm_network_interface.dc_nic.id
+
 }
 

@@ -12,8 +12,8 @@ variable "name_vms" {
 
 resource "azurerm_virtual_machine" "designvm" {
   count = length(var.name_vms)
- resource_group_name = var.resource_group_name
-  name = "Design_VM-${count.index}"
+ resource_group_name = azurerm_resource_group.rg.name
+  name = "Design_VM-${count.index+1}"
  location = var.location
 
  vm_size =  var.VM_vm_size
@@ -44,5 +44,25 @@ resource "azurerm_virtual_machine" "designvm" {
     sku       = var.vm_sku
     version   = var.vm_version
  }
+
+}
+
+resource "azurerm_virtual_machine_extension" "vm_joindomain" {
+    count = length(var.name_vms)
+    name                 = "vm_joindomain"
+    virtual_machine_id   = azurerm_virtual_machine.designvm[count.index].id
+    publisher           = "Microsoft.Compute"
+    type                = "CustomScriptExtension"
+    type_handler_version = "1.10"
+    
+    settings = <<SETTINGS
+        {
+            
+            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File joindomain.ps1.b64 -DomainName 'TestDomain.local' -UserName 'hamda' -Password 'Password123!'"
+        }
+        SETTINGS
+
+        depends_on = [azurerm_virtual_machine.designvm]
+
 
 }
