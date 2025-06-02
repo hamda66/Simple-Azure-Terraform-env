@@ -1,6 +1,6 @@
 locals{
     departments = ["IT", "HR", "Design"]
-    subnet_prefixes = "10.30"
+    subnet_prefixes = "10.10"
     department_subnet = {
     for x, y in local.departments :
 

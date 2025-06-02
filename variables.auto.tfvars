@@ -26,7 +26,7 @@ Server_version   = "latest"
 
 
 //department VMs
-VM_vm_size = "Standard_A1_V2"
+VM_vm_size = "Standard_B1ls"
 vm_offer = "windows-11"
 vm_sku = "win11-21h2-avd"
 vm_publisher = "MicrosoftWindowsDesktop"

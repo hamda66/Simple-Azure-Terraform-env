@@ -40,10 +40,15 @@ resource "azurerm_network_security_group" "servernsg" {
   
 }
 
-/*
+
 resource "azurerm_network_interface_security_group_association" "MainServer_Sec_Assio" {
   network_security_group_id = azurerm_network_security_group.servernsg.id
   network_interface_id = azurerm_network_interface.dc_nic.id
 
 }
-*/
+
+resource "azurerm_network_interface_security_group_association" "FileServer_Sec_Assio" {
+  network_security_group_id = azurerm_network_security_group.servernsg.id
+  network_interface_id = azurerm_network_interface.file_nic.id
+
+}

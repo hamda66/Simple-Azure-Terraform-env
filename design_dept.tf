@@ -28,7 +28,7 @@ resource "azurerm_virtual_machine" "designvm" {
  }
 
  storage_os_disk {
-    name              = "vmDisk"
+    name              = "vmDisk-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
