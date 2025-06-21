@@ -1,4 +1,5 @@
 
+
 //enable nic and public ip to iterate thru VM array list
 variable "private_ip_address" {
   type = list(string)
@@ -13,11 +14,11 @@ resource "azurerm_network_interface" "design_vm_nic" {
     location = var.location
     name = "nic-${count.index}"
     ip_configuration {
-      name = "Server_nic_config"
+      name = "Design_nic_config"
 
 
-// change subnet, should be department_subnets. Design is 3rd position in dept list
-      subnet_id = azurerm_subnet.sub.id
+// change subnet, should be department_subnets. Design is 2nd position in dept list, 
+      subnet_id = azurerm_subnet.department_subnets.id[count.index[2]]
       private_ip_address_allocation = "Static"
       private_ip_address = var.private_ip_address[count.index]
       public_ip_address_id = azurerm_public_ip.design_public_ip[count.index].id

@@ -52,3 +52,9 @@ resource "azurerm_network_interface_security_group_association" "FileServer_Sec_
   network_interface_id = azurerm_network_interface.file_nic.id
 
 }
+
+resource "azurerm_network_interface_security_group_association" "Web_server_Sec_Assio" {
+  network_security_group_id = azurerm_network_security_group.servernsg.id
+  network_interface_id = azurerm_network_interface.web_server_nic.id
+  
+}

@@ -48,3 +48,4 @@ rm *.tfstate
 - allocation_method for IP can either be Staic or Dynamic 
 
 - Use resource azurerm_network_interface_security_group_association to connect security rule with NIC/VNET/Subnet
+

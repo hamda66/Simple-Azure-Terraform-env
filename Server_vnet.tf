@@ -3,5 +3,6 @@ resource "azurerm_virtual_network" "vnet" {
     location = var.location
     address_space = var.Vnet_add
     name = var.vnet_name
+    dns_servers = [ "10.10.0.5"]
   
 }
