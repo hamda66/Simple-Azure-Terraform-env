@@ -49,3 +49,4 @@ rm *.tfstate
 
 - Use resource azurerm_network_interface_security_group_association to connect security rule with NIC/VNET/Subnet
 
+- for computers to join the same domain,  dns_servers must be added to VNET and IP much be the same as the Domian Controller 

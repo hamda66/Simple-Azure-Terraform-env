@@ -25,6 +25,7 @@ resource "azurerm_virtual_machine" "designvm" {
    admin_username = "hamda"
    admin_password = "Password123!"
    computer_name = "ssodesign"
+   // allow_extension_operations = true  
  }
 
  storage_os_disk {
@@ -36,6 +37,7 @@ resource "azurerm_virtual_machine" "designvm" {
 
  os_profile_windows_config {
    enable_automatic_upgrades = false
+   provision_vm_agent = true
  }
 
  storage_image_reference {

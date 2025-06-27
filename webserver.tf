@@ -53,14 +53,14 @@ resource "azurerm_network_interface" "web_server_nic" {
     name = "webserver_nic_config"
     subnet_id = azurerm_subnet.sub.id
     private_ip_address = "10.10.0.10"
-    private_ip_address_allocation = "static"
+    private_ip_address_allocation = "Static"
     public_ip_address_id = azurerm_public_ip.web_server_pip.id
   }
 }
 
 resource "azurerm_public_ip" "web_server_pip" {
   name = "${var.webname}-pip"
-  allocation_method = "static"
+  allocation_method = "Static"
   location = var.location
   resource_group_name = azurerm_resource_group.rg.name
   sku = "Standard"
