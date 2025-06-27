@@ -18,8 +18,7 @@ The following architecture diagrams summarize the on-premises and Azure infrastr
 ![Azure diagram](Azurediagram1.png)
 
 <!-- Add all PNG and JPG images in the docs folder -->
-![Image 1](diagram.png)
-![Image 2](Azurediagram1.png)
+
 ![Image 3](AD-Users.png)
 ![Image 4](AD-Groups.png)
 ![Image 5](AD-OU.png)
