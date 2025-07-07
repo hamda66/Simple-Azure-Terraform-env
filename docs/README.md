@@ -13,7 +13,7 @@ Key achievements include:
 
 The following architecture diagrams summarize the on-premises and Azure infrastructure, showing connectivity, resource layout, and security boundaries:
 
-![Azure Architecture Diagram](diagram.png)
+![Azure Architecture Diagram](diagram1.png)
 
 ![Azure diagram](Azurediagram1.png)
 
